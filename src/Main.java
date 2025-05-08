@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class Main {
     static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         menu();
     }
 
-    public static void menu() throws IOException {
+    public static void menu() {
         // MENU:
         try {
             int opcion;
@@ -55,6 +55,7 @@ public class Main {
                     case 5:
                         System.out.println("Escriba el nombre del proyecto a exportar:");
                         String nombreExportar = sc.nextLine();
+
                         Proyecto.exportarProyectoAJSON(nombreExportar);
                         break;
 
@@ -65,8 +66,14 @@ public class Main {
                         break;
                 }
             }
-        } catch (InputMismatchException e) {
+        }catch (InputMismatchException e){
             System.out.println("Por favor, ingrese un número válido.");
+        }catch (IOException e){
+            System.out.println("Error al exportar el proyecto a JSON: " + e.getMessage());
+        }catch (Exception e){
+            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        } finally{
+            sc.close();
         }
     }
 }
